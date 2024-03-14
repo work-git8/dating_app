@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +10,8 @@ import 'package:pinput/pinput.dart';
 import 'location_screen.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+  final String verificationId;
+  const OTPScreen({super.key, required this.verificationId});
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -135,8 +138,20 @@ class _OTPScreenState extends State<OTPScreen> {
                             ),
                     ),
                     IconButton(
-                        onPressed: () {
-                          Get.offAll(() => LocationScreen());
+                        onPressed: () async {
+                          try {
+                            PhoneAuthCredential cerdential =
+                                await PhoneAuthProvider.credential(
+                                    verificationId: widget.verificationId,
+                                    smsCode: otpController.text.toString());
+                            FirebaseAuth.instance
+                                .signInWithCredential(cerdential)
+                                .then((value) {
+                              Get.offAll(() => LocationScreen());
+                            });
+                          } catch (ex) {
+                            log(ex.toString());
+                          }
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

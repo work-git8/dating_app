@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,6 +15,20 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      log("location Denied");
+      LocationPermission ask = await Geolocator.requestPermission();
+    } else {
+      Position currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      log("Latitude=${currentPosition.latitude.toString()}");
+      log("Longitude=${currentPosition.longitude.toString()}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +93,9 @@ class _LocationScreenState extends State<LocationScreen> {
                     child: ElevatedButton(
                         style: ButtonStyle(
                             elevation: MaterialStateProperty.all(10)),
-                        onPressed: () {},
+                        onPressed: () {
+                          getCurrentLocation();
+                        },
                         child: Text(
                           "Set Your Location",
                           style: TextStyle(fontSize: 20, color: Colors.black),

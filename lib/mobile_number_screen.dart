@@ -1,4 +1,5 @@
 import 'package:dating_app/widget/custom_text_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -92,9 +93,22 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                       softWrap: true,
                     ),
                     IconButton(
-                        onPressed: () {
-                          Get.to(() => OTPScreen(),
-                              arguments: phoneController.text);
+                        onPressed: () async {
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                              verificationCompleted:
+                                  (PhoneAuthCredential credential) {},
+                              verificationFailed: (FirebaseAuthException ex) {},
+                              codeSent:
+                                  (String verificationId, int? resendToken) {
+                                Get.to(
+                                    () => OTPScreen(
+                                          verificationId: verificationId,
+                                        ),
+                                    arguments: phoneController.text);
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (String verificationId) {},
+                              phoneNumber: phoneController.text.toString());
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,
