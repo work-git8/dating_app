@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:dating_app/controller/image_controller.dart';
-import 'package:dating_app/profile_details.dart';
+import 'package:dating_app/tabScreens/user_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'homeScreen/home_screen.dart';
 
 class ProfilePic extends StatefulWidget {
   const ProfilePic({super.key});
@@ -198,8 +200,11 @@ class _ProfilePicState extends State<ProfilePic> {
                       softWrap: true,
                     ),
                     IconButton(
-                        onPressed: () {
-                          Get.to(() => ProfileDetails(), arguments: "");
+                        onPressed: () async {
+                          // List<String> uploadedUrls =
+                          //     await imageCont.uploadImages(imageCont.images);
+                          // print(uploadedUrls);
+                          Get.to(() => HomeScreen(), arguments: "");
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

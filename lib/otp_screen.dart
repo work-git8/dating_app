@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -138,20 +136,23 @@ class _OTPScreenState extends State<OTPScreen> {
                             ),
                     ),
                     IconButton(
-                        onPressed: () async {
-                          try {
-                            PhoneAuthCredential cerdential =
-                                await PhoneAuthProvider.credential(
-                                    verificationId: widget.verificationId,
-                                    smsCode: otpController.text.toString());
-                            FirebaseAuth.instance
-                                .signInWithCredential(cerdential)
-                                .then((value) {
-                              Get.offAll(() => LocationScreen());
-                            });
-                          } catch (ex) {
-                            log(ex.toString());
-                          }
+                        // onPressed: () async {
+                        //   try {
+                        //     PhoneAuthCredential cerdential =
+                        //         await PhoneAuthProvider.credential(
+                        //             verificationId: widget.verificationId,
+                        //             smsCode: otpController.text.toString());
+                        //     FirebaseAuth.instance
+                        //         .signInWithCredential(cerdential)
+                        //         .then((value) {
+                        //       Get.offAll(() => LocationScreen());
+                        //     });
+                        //   } catch (ex) {
+                        //     log(ex.toString());
+                        //   }
+                        // },
+                        onPressed: () {
+                          Get.offAll(() => LocationScreen());
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

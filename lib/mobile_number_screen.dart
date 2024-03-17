@@ -100,15 +100,21 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                               verificationFailed: (FirebaseAuthException ex) {},
                               codeSent:
                                   (String verificationId, int? resendToken) {
-                                Get.to(
-                                    () => OTPScreen(
-                                          verificationId: verificationId,
-                                        ),
-                                    arguments: phoneController.text);
+                                // Get.to(
+                                //     () => OTPScreen(
+                                //           verificationId: verificationId,
+                                //         ),
+                                //     arguments: phoneController.text);
                               },
                               codeAutoRetrievalTimeout:
                                   (String verificationId) {},
                               phoneNumber: phoneController.text.toString());
+
+                          Get.to(
+                              () => OTPScreen(
+                                    verificationId: '',
+                                  ),
+                              arguments: phoneController.text);
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

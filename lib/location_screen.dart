@@ -26,6 +26,7 @@ class _LocationScreenState extends State<LocationScreen> {
           desiredAccuracy: LocationAccuracy.best);
       log("Latitude=${currentPosition.latitude.toString()}");
       log("Longitude=${currentPosition.longitude.toString()}");
+      Get.to(() => Profile());
     }
   }
 

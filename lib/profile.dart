@@ -1,4 +1,4 @@
-import 'package:dating_app/profile_details.dart';
+import 'package:dating_app/tabScreens/user_details_screen.dart';
 import 'package:dating_app/profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
