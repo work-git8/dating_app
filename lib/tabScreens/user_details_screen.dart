@@ -62,7 +62,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     String? country,
     String? profileHeading,
     String? lookingForInAPartner,
-    DateTime publishedDateTime,
 
     //Appearance
     String? height,
@@ -98,7 +97,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             country:country,
             profileHeading:profileHeading,
             lookingForInAPartner:lookingForInAPartner,
-            publishedDateTime:publishedDateTime,
+            publishedDateTime:DateTime.now().millisecondsSinceEpoch,
 
             //Appearance
             height:height,

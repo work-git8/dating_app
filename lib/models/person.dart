@@ -12,7 +12,7 @@ class Person {
   String? country;
   String? profileHeading;
   String? lookingForInAPartner;
-  DateTime? publishedDateTime;
+  int? publishedDateTime;
 
   //Appearance
   String? height;
