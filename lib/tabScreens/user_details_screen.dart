@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/widget/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../models/person.dart';
+
 class UserDetailsScreen extends StatefulWidget {
-  const UserDetailsScreen({super.key});
+  
+  String? userID;
+  UserDetailsScreen({super.key, this.userID});
 
   @override
   State<UserDetailsScreen> createState() => _UserDetailsScreenState();
@@ -44,7 +49,144 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   TextEditingController languageSpokenController = TextEditingController();
   TextEditingController religionController = TextEditingController();
   TextEditingController ethnicityController = TextEditingController();
+
+  List? urlImage = [];
+  String? name = '';
+
+  createNewUserAccount(
+    String? name,
+    String? email,
+    int? age,
+    String? phoneNo,
+    String? city,
+    String? country,
+    String? profileHeading,
+    String? lookingForInAPartner,
+    DateTime publishedDateTime,
+
+    //Appearance
+    String? height,
+    String? weight,
+    String? bodyType,
+
+    //LifeStyle
+    String? drink,
+    String? smoke,
+    String? maritalStatus,
+    String? haveChildren,
+    int? noOfChildren,
+    String? profession,
+    String? employmentStatus,
+    String? income,
+    String? livingSituation,
+    String? willingToRelocate,
+    String? relationshipYouAreLookingFor,
+
+    //Background-Cultural Values
+    String? nationality,
+    String? education,
+    String? languageSpoken,
+    String? religion,
+    String? ethnicity) async
+    {
+        try {
+          Person personInstance = Person(
+            email :email,
+            age:age,
+            phoneNo:phoneNo,
+            city:city,
+            country:country,
+            profileHeading:profileHeading,
+            lookingForInAPartner:lookingForInAPartner,
+            publishedDateTime:publishedDateTime,
+
+            //Appearance
+            height:height,
+            weight:weight,
+            bodyType:bodyType,
+
+            //LifeStyle
+            drink:drink,
+            smoke:smoke,
+            maritalStatus:maritalStatus,
+            haveChildren:haveChildren,
+            noOfChildren:noOfChildren,
+            profession:profession,
+            employmentStatus:employmentStatus,
+            income:income,
+            livingSituation:livingSituation,
+            willingToRelocate:willingToRelocate,
+            relationshipYouAreLookingFor:relationshipYouAreLookingFor,
+
+            //Background-Cultural Values
+            nationality:nationality,
+            education:education,
+            languageSpoken:languageSpoken,
+            religion:religion,
+            ethnicity:ethnicity
+          );
+
+          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set(personInstance.toJson());
+        } catch (e) {
+          Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
+        }
+    }
   
+  retrieveUserInfo() async {
+    await FirebaseFirestore.instance.collection("users").doc(widget.userID).get().then((snapshot){
+      if(snapshot.exists){
+        if(snapshot.data()!["urlImage1"] != null){
+          setState(() {
+            for(var i=0; i<7;i++){
+            urlImage![i] = snapshot.data()!["urlImage$i"];}
+          });
+        }
+
+        setState(() {
+          name = snapshot.data()!["name"];
+          emailController.text = snapshot.data()![ "email" ];
+          ageController.text = snapshot.data()!["age"].toString();
+          phoneNoController.text = snapshot.data()!["phoneNo"];
+          cityController.text = snapshot.data()!["city"];
+          countryController.text = snapshot.data()!["country"];
+          profileHeadingController.text = snapshot.data()![ "profileHeading" ];
+          lookingForInaPartnerController.text = snapshot.data()![ "lookingForInAPartner" ];
+
+          //Appearance
+          heightController.text = snapshot.data()![ "height" ];
+          weightController.text = snapshot.data()![ "weight" ];
+          bodyTypeController.text = snapshot.data()![ "bodyType"];
+
+          //Lifestyle & Background
+          drinkController.text = snapshot.data()![ "drink" ];
+          smokeController.text = snapshot.data()!["smoke"];
+          maritalStatusController.text = snapshot.data()!["maritalStatus"];
+          haveChildrenController.text = snapshot.data()![ "haveChildren" ];
+          noOfChildrenController.text = snapshot.data()![ "noOfChildren" ];
+          professionController.text = snapshot.data()![ "profession" ];
+          employmentStatusController.text = snapshot.data()!["employmentStatus"];
+          incomeController.text = snapshot.data()![ "income" ];
+          livingSituationController.text = snapshot.data()![ "livingSituation" ];
+          willingToRelocateController.text = snapshot.data()![ "willingToRelocate" ];
+          relationshipYouAreLookingForController.text = snapshot.data()![ "relationshipYouAreLookingFor"];
+          nationalityController.text = snapshot.data()!["nationality"];
+          educationController.text = snapshot.data()![ "education" ];
+          languageSpokenController.text = snapshot.data()![ "languageSpoken" ];
+          religionController.text = snapshot.data()!["religion"];
+          ethnicityController.text = snapshot.data()!["ethnicity"];
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    retrieveUserInfo();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +221,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(10)),side: MaterialStateProperty.all(BorderSide(color: Colors.black, width: 3)),backgroundColor: MaterialStateProperty.all(Colors.amberAccent),elevation: MaterialStateProperty.all(20), fixedSize: MaterialStateProperty.all(Size.fromWidth(MediaQuery.of(context).size.width-36))),
                     onPressed: () {
                       Get.defaultDialog(title: "Personal info",
+                      backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
                       actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
@@ -112,6 +255,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(10)),side: MaterialStateProperty.all(BorderSide(color: Colors.black, width: 3)),backgroundColor: MaterialStateProperty.all(Colors.amberAccent),elevation: MaterialStateProperty.all(20), fixedSize: MaterialStateProperty.all(Size.fromWidth(MediaQuery.of(context).size.width-36))),
                     onPressed: () {
                       Get.defaultDialog(title: "Appearance",
+                      backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
                       actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
@@ -137,6 +281,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(10)),side: MaterialStateProperty.all(BorderSide(color: Colors.black, width: 3)),backgroundColor: MaterialStateProperty.all(Colors.amberAccent),elevation: MaterialStateProperty.all(20), fixedSize: MaterialStateProperty.all(Size.fromWidth(MediaQuery.of(context).size.width-36))),
                     onPressed: () {
                      Get.defaultDialog(title: "LifeStyle",
+                      backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
                       actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
@@ -171,7 +316,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   ElevatedButton(
                     style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(10)),side: MaterialStateProperty.all(BorderSide(color: Colors.black, width: 3)),backgroundColor: MaterialStateProperty.all(Colors.amberAccent),elevation: MaterialStateProperty.all(20), fixedSize: MaterialStateProperty.all(Size.fromWidth(MediaQuery.of(context).size.width-36))),
                     onPressed: () {
-                  Get.defaultDialog(title: "Background-Cultural Values",
+                  Get.defaultDialog(title: " Background-Cultural Values ",
+                      backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
                       actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],

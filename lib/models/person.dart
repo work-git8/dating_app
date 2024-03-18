@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,7 +11,7 @@ class Person {
   String? city;
   String? country;
   String? profileHeading;
-  String? lookingForInaPartner;
+  String? lookingForInAPartner;
   DateTime? publishedDateTime;
 
   //Appearance
@@ -50,7 +49,7 @@ class Person {
     this.city,
     this.country,
     this.profileHeading,
-    this.lookingForInaPartner,
+    this.lookingForInAPartner,
     this.publishedDateTime,
 
     //Appearance
@@ -92,7 +91,7 @@ class Person {
         city: dataSnapshot['city'],
         country: dataSnapshot['country'],
         profileHeading: dataSnapshot['profileHeading'],
-        lookingForInaPartner: dataSnapshot['lookingForInaPartner'],
+        lookingForInAPartner: dataSnapshot['lookingForInaPartner'],
         publishedDateTime: dataSnapshot['publishedDateTime'],
 
         //Appearance
@@ -134,7 +133,7 @@ class Person {
       "city":city,
       "country":country,
       "profileHeading":profileHeading,
-      "lookingForInaPartner":lookingForInaPartner,
+      "lookingForInAPartner":lookingForInAPartner,
       "publishedDateTime":publishedDateTime,
 
       //Appearance

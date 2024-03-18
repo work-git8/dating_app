@@ -31,7 +31,7 @@ class ImageController extends GetxController {
 
     if (imageFile != null) {
       Get.snackbar(
-          "Profile Image", "You have successfully picked your profile image.");
+          "Profile Image", "You have successfully picked your profile image.", snackPosition: SnackPosition.BOTTOM);
       if (imagePickerIndex >= 0 && imagePickerIndex < images.length) {
         images[imagePickerIndex] = imageFile;
       }
