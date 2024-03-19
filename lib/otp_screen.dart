@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -132,7 +133,31 @@ class _OTPScreenState extends State<OTPScreen> {
                               "This code should arrive within ${seconds.value}",
                             )
                           : GestureDetector(
-                              child: Text("Didn't get a code?"),
+                              child: Text("Didn't get a code?",  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontFamily: 'Caveat')),
+                              onTap: () async {
+                              await FirebaseAuth.instance.verifyPhoneNumber(
+                              verificationCompleted:
+                                  (PhoneAuthCredential credential) {},
+                              verificationFailed: (FirebaseAuthException ex) {},
+                              codeSent:
+                                  (String verificationId, int? resendToken) {
+                                Get.to(
+                                    () => OTPScreen(
+                                          verificationId: verificationId,
+                                        ),
+                                    arguments: "+919038060439"/*phoneController.text*/);  
+                                    
+                                      seconds.value = 30;
+                                      startTimer();
+                                                                                                      
+                              },
+                              codeAutoRetrievalTimeout:
+                                  (String verificationId) {},
+                              phoneNumber: "+919038060439"/*phoneController.text.toString()*/);},
                             ),
                     ),
                     IconButton(

@@ -81,6 +81,11 @@ class _ProfileState extends State<Profile> {
                     Text(
                       "This will be shown in your profile",
                       softWrap: true,
+                      style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Caveat')
                     ),
                     IconButton(
                         onPressed: () {

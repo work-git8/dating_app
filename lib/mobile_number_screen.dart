@@ -91,7 +91,12 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                     Text(
                       "We never share this with anyone and\n it won't be in your profile",
                       softWrap: true,
-                    ),
+                      style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Caveat')
+                      ),
                     IconButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.verifyPhoneNumber(
@@ -100,21 +105,21 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                               verificationFailed: (FirebaseAuthException ex) {},
                               codeSent:
                                   (String verificationId, int? resendToken) {
-                                // Get.to(
-                                //     () => OTPScreen(
-                                //           verificationId: verificationId,
-                                //         ),
-                                //     arguments: phoneController.text);
+                                Get.to(
+                                    () => OTPScreen(
+                                          verificationId: verificationId,
+                                        ),
+                                    arguments: "+919038060439"/*phoneController.text*/);
                               },
                               codeAutoRetrievalTimeout:
                                   (String verificationId) {},
-                              phoneNumber: phoneController.text.toString());
+                              phoneNumber: "+919038060439"/*phoneController.text.toString()*/);
 
                           Get.to(
                               () => OTPScreen(
                                     verificationId: '',
                                   ),
-                              arguments: phoneController.text);
+                              arguments: "+919038060439"/*phoneController.text*/);
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

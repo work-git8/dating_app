@@ -198,13 +198,18 @@ class _ProfilePicState extends State<ProfilePic> {
                     Text(
                       "This will be shown in your profile",
                       softWrap: true,
+                      style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontFamily: 'Caveat')
                     ),
                     IconButton(
                         onPressed: () async {
                           List<String> uploadedUrls =
                               await imageCont.uploadImages(imageCont.images);
                           print(uploadedUrls);
-                          //Get.to(() => HomeScreen(), arguments: "");
+                          Get.to(() => HomeScreen(), arguments: "");
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

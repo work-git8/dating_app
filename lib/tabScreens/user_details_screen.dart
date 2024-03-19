@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/mobile_number_screen.dart';
 import 'package:dating_app/widget/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -201,6 +202,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
+                Get.to(() => MobileNumberScreen());
               },
               icon: Icon(
                 Icons.logout,
