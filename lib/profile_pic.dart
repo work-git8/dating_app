@@ -201,10 +201,10 @@ class _ProfilePicState extends State<ProfilePic> {
                     ),
                     IconButton(
                         onPressed: () async {
-                          // List<String> uploadedUrls =
-                          //     await imageCont.uploadImages(imageCont.images);
-                          // print(uploadedUrls);
-                          Get.to(() => HomeScreen(), arguments: "");
+                          List<String> uploadedUrls =
+                              await imageCont.uploadImages(imageCont.images);
+                          print(uploadedUrls);
+                          //Get.to(() => HomeScreen(), arguments: "");
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

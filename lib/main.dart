@@ -11,11 +11,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid
       ? await Firebase.initializeApp(
+              name: "dating-app-ab16e",
               options: const FirebaseOptions(
-                  apiKey: 'apiKey',
-                  appId: 'appId',
-                  messagingSenderId: 'messagingSenderId',
-                  projectId: 'projectId'))
+                  apiKey: 'AIzaSyBPtBSt6MFX09iXj56oO9NsZwRrf1DhPO8',
+                  appId: '1:136362130488:android:4713b051d088ae94d67acd',
+                  messagingSenderId: '136362130488',
+                  projectId: 'dating-app-ab16e',
+                  storageBucket: "dating-app-ab16e.appspot.com"
+                  ))
           .then((value) {
           Get.put(ImageController());
         })
