@@ -12,7 +12,20 @@
           "package_name": "com.example.dating_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "136362130488-012qk7iscbgdl33269i1ebo81im3j7vd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dating_app",
+            "certificate_hash": "55ebb0cff006e0b3865666f73d8e807dfb12945a"
+          }
+        },
+        {
+          "client_id": "136362130488-u122lvr40lg167ekk4au5h2jf2822pmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQM9toRJTTtbpDJA-cGji5jfq52A6FMnw"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136362130488-u122lvr40lg167ekk4au5h2jf2822pmn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "136362130488-abk6ma649pasakdii80vonjgmgio4uo9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.datingApp.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,8 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'mobile_number_screen.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -66,15 +67,37 @@ class _SecondScreenState extends State<SecondScreen> {
             SizedBox(
               width: 300,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: 
+                  () async {
+                      GoogleSignIn _googleSignIn = GoogleSignIn();
+                      try {
+                        await _googleSignIn.signOut();
+
+                        var user = await _googleSignIn.signIn();
+                        GoogleSignInAuthentication? googleAuth = await user?.authentication;
+                        AuthCredential credential = GoogleAuthProvider.credential(
+                          accessToken: googleAuth?.accessToken,
+                          idToken:  googleAuth?.idToken,
+                        );
+                        UserCredential verifiedUser =  await FirebaseAuth.instance.signInWithCredential(credential);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              'Login successful with username : ${verifiedUser.user!.displayName} and email : ${verifiedUser.user?.email}'),
+                          backgroundColor: Colors.green,
+                        ));
+                        print(user);
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
                 child: Text(
-                  "Continue with Facebook",
+                  "Continue with Google",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 style: ButtonStyle(
                     elevation: MaterialStateProperty.all(10),
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.blueAccent)),
+                        MaterialStateProperty.all(Colors.orange.shade900)),
               ),
             ),
             SizedBox(height: 10),

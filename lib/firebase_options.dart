@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '136362130488',
     projectId: 'dating-app-ab16e',
     storageBucket: 'dating-app-ab16e.appspot.com',
+    androidClientId: '136362130488-012qk7iscbgdl33269i1ebo81im3j7vd.apps.googleusercontent.com',
+    iosClientId: '136362130488-vqn1fqvl519ts83qtc9bh1crtjn11dmg.apps.googleusercontent.com',
     iosBundleId: 'com.example.datingApp',
   );
 
@@ -75,6 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '136362130488',
     projectId: 'dating-app-ab16e',
     storageBucket: 'dating-app-ab16e.appspot.com',
+    androidClientId: '136362130488-012qk7iscbgdl33269i1ebo81im3j7vd.apps.googleusercontent.com',
+    iosClientId: '136362130488-abk6ma649pasakdii80vonjgmgio4uo9.apps.googleusercontent.com',
     iosBundleId: 'com.example.datingApp.RunnerTests',
   );
 }

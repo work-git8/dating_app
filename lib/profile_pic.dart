@@ -5,7 +5,7 @@ import 'package:dating_app/tabScreens/user_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:get/get.dart';
 import 'homeScreen/home_screen.dart';
 
 class ProfilePic extends StatefulWidget {
@@ -16,6 +16,7 @@ class ProfilePic extends StatefulWidget {
 }
 
 class _ProfilePicState extends State<ProfilePic> {
+ 
   var imageCont = ImageController.imageController;
 
   @override

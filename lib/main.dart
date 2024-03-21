@@ -10,19 +10,11 @@ import 'splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-              options: const FirebaseOptions(
-                  apiKey: 'AIzaSyBPtBSt6MFX09iXj56oO9NsZwRrf1DhPO8',
-                  appId: '1:136362130488:android:4713b051d088ae94d67acd',
-                  messagingSenderId: '136362130488',
-                  projectId: 'dating-app-ab16e',
-                  storageBucket: "dating-app-ab16e.appspot.com"
-                  ))
+  await Firebase.initializeApp(
+           )
           .then((value) {
           Get.put(ImageController());
-        })
-      : await Firebase.initializeApp();
+        });
        await FirebaseAppCheck.instance.activate(
     // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
     // argument for `webProvider`
