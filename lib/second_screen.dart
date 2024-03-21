@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dating_app/location_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,12 +81,9 @@ class _SecondScreenState extends State<SecondScreen> {
                           idToken:  googleAuth?.idToken,
                         );
                         UserCredential verifiedUser =  await FirebaseAuth.instance.signInWithCredential(credential);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'Login successful with username : ${verifiedUser.user!.displayName} and email : ${verifiedUser.user?.email}'),
-                          backgroundColor: Colors.green,
-                        ));
-                        print(user);
+                        Get.snackbar("Google SignIn Success",  'Login successful with username : ${verifiedUser.user!.displayName} and email : ${verifiedUser.user?.email}',backgroundColor: Colors.green.shade100, snackPosition: SnackPosition.BOTTOM, colorText: Colors.black);                  
+                        Get.to(()=>LocationScreen());
+                        print(verifiedUser);
                       } catch (e) {
                         print(e);
                       }

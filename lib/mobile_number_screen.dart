@@ -130,7 +130,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                       () => OTPScreen(
                         verificationId: '',
                       ),
-                      arguments: "+919038060439" /*phoneController.text*/,
+                      arguments: phoneController.text,
                     );
                   },
                   style: ButtonStyle(
