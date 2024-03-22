@@ -1,10 +1,13 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/global.dart';
 import 'package:dating_app/location_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pinput/pinput.dart';
 import 'mobile_number_screen.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -15,6 +18,37 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+
+  Future<DocumentReference<Map<String, dynamic>>> checkAndAddUser(UserCredential verifiedUser) async {
+  final QuerySnapshot<Map<String, dynamic>> usersSnapshot =
+      await FirebaseFirestore.instance.collection("users").get();
+
+  final List<DocumentSnapshot<Map<String, dynamic>>> userDocs =
+      usersSnapshot.docs;
+
+  final String userEmail = verifiedUser.user!.email!.toLowerCase();
+
+  for (final DocumentSnapshot<Map<String, dynamic>> userDoc in userDocs) {
+    final Map<String, dynamic> userData = userDoc.data()!;
+    final String email = userData['email'].toString().toLowerCase();
+
+    if (email == userEmail) {
+      // If email already exists, return the document reference
+      print(userDoc.reference);
+      return userDoc.reference;
+    }
+  }
+
+  // If email doesn't exist, add a new document and return its reference
+  final newDocRef = FirebaseFirestore.instance
+      .collection("users")
+      .doc(currentUserID); // Use currentUserID as document ID
+  await newDocRef.set({'email': userEmail});
+  print(newDocRef);
+  return newDocRef;
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -81,9 +115,11 @@ class _SecondScreenState extends State<SecondScreen> {
                           idToken:  googleAuth?.idToken,
                         );
                         UserCredential verifiedUser =  await FirebaseAuth.instance.signInWithCredential(credential);
-                        Get.snackbar("Google SignIn Success",  'Login successful with username : ${verifiedUser.user!.displayName} and email : ${verifiedUser.user?.email}',backgroundColor: Colors.green.shade100, snackPosition: SnackPosition.BOTTOM, colorText: Colors.black);                  
+                        // print("verified user ===> $verifiedUser");
+                        // print("currentUid===> ${FirebaseAuth.instance.currentUser!.uid}");
+                        checkAndAddUser(verifiedUser);
+                        Get.snackbar("Google SignIn Success",  'Login successful with username : ${verifiedUser.user!.displayName} and email : ${verifiedUser.user!.email}',backgroundColor: Colors.green.shade100, snackPosition: SnackPosition.BOTTOM, colorText: Colors.black);                  
                         Get.to(()=>LocationScreen());
-                        print(verifiedUser);
                       } catch (e) {
                         print(e);
                       }

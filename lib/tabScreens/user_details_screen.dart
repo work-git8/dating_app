@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/controller/profile_controller.dart';
 import 'package:dating_app/mobile_number_screen.dart';
+import 'package:dating_app/second_screen.dart';
 import 'package:dating_app/widget/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +22,9 @@ class UserDetailsScreen extends StatefulWidget {
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> {
 
+  ProfileController profileController = Get.find();
    //Personal info
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
@@ -105,7 +109,10 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      
     retrieveUserInfo();
+    });
   }
 
 
@@ -124,7 +131,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Get.to(() => MobileNumberScreen());
+                Get.to(() => SecondScreen());
               },
               icon: Icon(
                 Icons.logout,
@@ -147,12 +154,14 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
-                      actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
+                      actions: [ElevatedButton(onPressed: (){profileController.fillPersonalInfoDetails(nameController.text, emailController.text, int.parse(ageController.text), phoneNoController.text, cityController.text, countryController.text, profileHeadingController.text, lookingForInaPartnerController.text);}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
                                   content: Container(
                                     padding: EdgeInsets.all(20),
                                     child: SingleChildScrollView(
                                       scrollDirection: Axis.vertical,
                                       child: Column(children: [
+                                        CustomTextFormField(controller: nameController, hintText:"Enter your Name", icon: Icon(Icons.person),),
+                                        SizedBox(height:10),
                                         CustomTextFormField(controller: emailController, hintText:"Enter your Email", icon: Icon(Icons.email),),
                                         SizedBox(height: 10,),
                                         CustomTextFormField(controller: ageController, hintText: "Enter your Age", icon: Icon(Icons.numbers),),

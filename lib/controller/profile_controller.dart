@@ -111,6 +111,33 @@ class ProfileController extends GetxController {
           Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
         }
     }
+
+
+    fillPersonalInfoDetails(
+    String? name,
+    String? email,
+    int? age,
+    String? phoneNo,
+    String? city,
+    String? country,
+    String? profileHeading,
+    String? lookingForInAPartner,) async {
+      try {
+          Person personInstance = Person(
+            email :email,
+            age:age,
+            phoneNo:phoneNo,
+            city:city,
+            country:country,
+            profileHeading:profileHeading,
+            lookingForInAPartner:lookingForInAPartner,
+            publishedDateTime:DateTime.now().millisecondsSinceEpoch,);
+             await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson());
+        } catch (e) {
+          Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
+        }
+    }
+    
   
 
   checkIfUserIsLoggedIn(User? currentUser){
