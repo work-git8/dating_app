@@ -47,7 +47,7 @@ class _SwippingScreenState extends State<SwippingScreen> {
           return DecoratedBox(
             decoration: BoxDecoration(
             image:DecorationImage(
-              image: NetworkImage(eachProfileInfo.imageProfile.toString()), fit: BoxFit.cover) 
+              image: NetworkImage(eachProfileInfo.imageProfile![0].toString()), fit: BoxFit.cover) 
           ),
             child: Padding(
               padding: EdgeInsets.all(12),

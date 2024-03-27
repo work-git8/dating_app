@@ -151,10 +151,17 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(10)),side: MaterialStateProperty.all(BorderSide(color: Colors.black, width: 3)),backgroundColor: MaterialStateProperty.all(Colors.amberAccent),elevation: MaterialStateProperty.all(20), fixedSize: MaterialStateProperty.all(Size.fromWidth(MediaQuery.of(context).size.width-36))),
                     onPressed: () {
                       Get.defaultDialog(title: "Personal info",
+                      onConfirm: () {
+                        profileController.fillPersonalInfoDetails(nameController.text, emailController.text, int.parse(ageController.text), phoneNoController.text, cityController.text, countryController.text, profileHeadingController.text, lookingForInaPartnerController.text);
+                        // setState(() {
+                        // Get.back();});
+                      },
+                      onCancel: () {
+                        //  Get.back();
+                      },
                       backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
-                      actions: [ElevatedButton(onPressed: (){profileController.fillPersonalInfoDetails(nameController.text, emailController.text, int.parse(ageController.text), phoneNoController.text, cityController.text, countryController.text, profileHeadingController.text, lookingForInaPartnerController.text);}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
                                   content: Container(
                                     padding: EdgeInsets.all(20),
                                     child: SingleChildScrollView(
@@ -190,7 +197,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
-                      actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
+                      onConfirm: (){
+                        profileController.fillAppearanceDetails(heightController.text, weightController.text, bodyTypeController.text);
+                        //  Get.back();
+                        },
+                        onCancel: (){
+                          // Get.back();
+                          },
                                   content: Container(
                                     padding: EdgeInsets.all(20),
                                     child: SingleChildScrollView(
@@ -216,7 +229,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
-                      actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
+                      onConfirm:  (){
+                        profileController.fillLifeStyleDetails(drinkController.text, smokeController.text, maritalStatusController.text, haveChildrenController.text, int.parse(noOfChildrenController.text), livingSituationController.text, willingToRelocateController.text, relationshipYouAreLookingForController.text);
+                        //  Get.back();
+                        },
+                        onCancel: (){
+                          // Get.back();
+                        },
                                   content: Container(
                                     padding: EdgeInsets.all(20),
                                     child: SingleChildScrollView(
@@ -252,7 +271,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       backgroundColor: Colors.amber,
                       titlePadding: EdgeInsets.all(10),
                       titleStyle: TextStyle(fontSize: 25),
-                      actions: [ElevatedButton(onPressed: (){}, child: Text("Save")), ElevatedButton(onPressed: (){Get.back();}, child: Text("Cancel"))],
+                      onConfirm: (){
+                        profileController.fillBackgroundDetails(professionController.text, employmentStatusController.text, incomeController.text, nationalityController.text, educationController.text, languageSpokenController.text, religionController.text, ethnicityController.text);
+                        //  Get.back();
+                        },
+                        onCancel: (){
+                          // Get.back();
+                        },
                                   content: Container(
                                     padding: EdgeInsets.all(20),
                                     child: SingleChildScrollView(

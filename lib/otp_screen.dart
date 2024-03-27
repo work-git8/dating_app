@@ -58,7 +58,7 @@ class _OTPScreenState extends State<OTPScreen> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.orangeAccent,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -78,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     text: 'Contact Number',
                     style: GoogleFonts.pacifico(
                         fontSize: 40,
-                        color: Colors.yellowAccent,
+                        color: Colors.red,
                         decoration: TextDecoration.none),
                   ),
                 ],
@@ -145,7 +145,6 @@ class _OTPScreenState extends State<OTPScreen> {
                                     ),
                                     arguments: Get.arguments);
                                 seconds.value = maxSeconds;
-                                startTimer();
                               },
                               codeAutoRetrievalTimeout: (String verificationId) {},
                               phoneNumber: Get.arguments,

@@ -1,3 +1,4 @@
+import 'package:dating_app/validation/validation.dart';
 import 'package:dating_app/widget/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.orangeAccent,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -51,7 +52,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                     text: 'Contact Number',
                     style: GoogleFonts.pacifico(
                       fontSize: 40,
-                      color: Colors.yellowAccent,
+                      color: Colors.red,
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -76,6 +77,8 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
               width: MediaQuery.of(context).size.width - 36,
               child: CustomTextFormField(
                 controller: phoneController,
+                autovalidate: AutovalidateMode.onUserInteraction,
+                validator: Validation.PhoneValidator,
                 hintText: "Enter Contact Number",
                 inputType: TextInputType.phone,
                 icon: Icon(Icons.call_outlined),

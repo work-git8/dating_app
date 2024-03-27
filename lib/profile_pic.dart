@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/controller/image_controller.dart';
+import 'package:dating_app/global.dart';
+import 'package:dating_app/personal_info.dart';
 import 'package:dating_app/tabScreens/user_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +29,7 @@ class _ProfilePicState extends State<ProfilePic> {
         alignment: Alignment.topCenter,
         children: [
           Container(
-            color: Colors.red,
+            color: Colors.orangeAccent,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -50,7 +53,7 @@ class _ProfilePicState extends State<ProfilePic> {
                           text: 'Photos of yourself',
                           style: GoogleFonts.pacifico(
                               fontSize: 40,
-                              color: Colors.yellowAccent,
+                              color: Colors.red,
                               decoration: TextDecoration.none),
                         ),
                       ]),
@@ -210,7 +213,10 @@ class _ProfilePicState extends State<ProfilePic> {
                           List<String> uploadedUrls =
                               await imageCont.uploadImages(imageCont.images);
                           print(uploadedUrls);
-                          Get.to(() => HomeScreen(), arguments: "");
+                          await FirebaseFirestore.instance.collection('users').doc(currentUserID).set({
+                                'imageProfile': uploadedUrls,
+                              }, SetOptions(merge: true));
+                          Get.to(() => PersonalInfo(), arguments: "");
                         },
                         color: Colors.black,
                         splashColor: Colors.amber,

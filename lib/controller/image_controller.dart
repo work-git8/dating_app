@@ -63,4 +63,10 @@ class ImageController extends GetxController {
 
     return uploadedImageUrls;
   }
+
+  @override
+  void onClose(){
+    imageController.dispose();
+    super.onClose();
+  }
 }

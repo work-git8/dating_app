@@ -1,23 +1,29 @@
-import 'package:dating_app/tabScreens/user_details_screen.dart';
-import 'package:dating_app/profile_pic.dart';
+
+import 'dart:ffi';
+
+import 'package:dating_app/lifestyle.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'controller/appearance_controller.dart';
 import 'widget/custom_text_form_field.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class AppearanceDetails extends StatefulWidget {
+  const AppearanceDetails({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<AppearanceDetails> createState() => _PersonalInfoState();
 }
 
-class _ProfileState extends State<Profile> {
+class _PersonalInfoState extends State<AppearanceDetails> {
+
+  final appearanceController = Get.put(AppearanceController());
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-
     return Scaffold(
       backgroundColor: Colors.orangeAccent,
       body: SingleChildScrollView(
@@ -32,11 +38,7 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
-                    text: "Please enter your\n",
-                    style: TextStyle(color: Colors.black, fontSize: 40),
-                  ),
-                  TextSpan(
-                    text: 'Legal Name',
+                    text: 'Your Appearance',
                     style: GoogleFonts.pacifico(
                       fontSize: 40,
                       color: Colors.red,
@@ -46,33 +48,26 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(30),
-              child: Text(
-                "We protect our community by making sure everyone on Bumble is real",
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontFamily: 'Caveat',
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ),
             SizedBox(height: 30),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 36,
-              child: CustomTextFormField(
-                controller: nameController,
-                hintText: "Enter your Name",
-                inputType: TextInputType.text,
-                icon: Icon(Icons.person),
-              ),
-            ),
-            SizedBox(height: 350),
+            SizedBox(width: MediaQuery.of(context).size.width-36,child: CustomTextFormField(controller: appearanceController.heightController.value, hintText:"Enter your Height in ft", icon: Icon(Icons.insert_chart),)),
+            SizedBox(height: 10,),
+            SizedBox(width: MediaQuery.of(context).size.width-36, child: CustomTextFormField(controller: appearanceController.weightController.value, hintText: "Enter your Weight in kgs", icon: Icon(Icons.table_chart))),
+            SizedBox(height: 10,),
+            SizedBox(width: MediaQuery.of(context).size.width-36, child: CustomTextFormField(controller: appearanceController.bodyTypeController.value, hintText: "Enter your Body Type", icon:Icon(Icons.type_specimen_sharp))),
+            SizedBox(height: 410),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                IconButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white)),
+                        color: Colors.black,
+                        splashColor: Colors.amber,
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.arrow_back_ios_new_rounded)),
                 Icon(Icons.visibility),
                 Text(
                   "This will be shown in your profile",
@@ -86,7 +81,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Get.to(() => ProfilePic(), arguments: nameController.text);
+                    Get.to(() => LifeStyleDetails(), arguments: '');
                   },
                   color: Colors.black,
                   splashColor: Colors.amber,

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Person {
   String? uid;
-  String? imageProfile;
+  List<String>? imageProfile;
   String? name;
   String? email;
   int? age;
@@ -83,7 +83,7 @@ class Person {
 
     return Person(
         uid: dataSnapshot['uid'],
-        imageProfile: dataSnapshot['imageProfile'],
+        imageProfile: List<String>.from(dataSnapshot['imageProfile'] ?? []),
         name: dataSnapshot['name'],
         email: dataSnapshot['email'],
         age: dataSnapshot['age'],

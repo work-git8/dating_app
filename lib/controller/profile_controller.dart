@@ -110,6 +110,7 @@ class ProfileController extends GetxController {
         } catch (e) {
           Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
         }
+        update();
     }
 
 
@@ -124,6 +125,7 @@ class ProfileController extends GetxController {
     String? lookingForInAPartner,) async {
       try {
           Person personInstance = Person(
+            name:name,
             email :email,
             age:age,
             phoneNo:phoneNo,
@@ -132,10 +134,82 @@ class ProfileController extends GetxController {
             profileHeading:profileHeading,
             lookingForInAPartner:lookingForInAPartner,
             publishedDateTime:DateTime.now().millisecondsSinceEpoch,);
-             await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson());
+             await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson(),SetOptions(merge: true));
         } catch (e) {
           Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
         }
+        update();
+    }
+
+    fillAppearanceDetails(
+      String? height,
+      String? weight,
+      String? bodyType,
+    ) async {
+       try {
+          Person personInstance = Person(
+             height:height,
+            weight:weight,
+            bodyType:bodyType,);
+            await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson(),SetOptions(merge: true));
+        } catch (e) {
+          Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
+        }
+        update();
+    }
+
+    fillLifeStyleDetails(
+      String? drink,
+      String? smoke,
+      String? maritalStatus,
+      String? haveChildren,
+      int? noOfChildren,
+      String? livingSituation,
+      String? willingToRelocate,
+      String? relationshipYouAreLookingFor,
+    ) async {
+      try {
+          Person personInstance = Person(
+            drink:drink,
+            smoke:smoke,
+            maritalStatus:maritalStatus,
+            haveChildren:haveChildren,
+            noOfChildren:noOfChildren,
+            livingSituation:livingSituation,
+            willingToRelocate:willingToRelocate,
+            relationshipYouAreLookingFor:relationshipYouAreLookingFor,);
+          await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson(),SetOptions(merge: true));
+        } catch (e) {
+          Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
+        }    
+        update();
+    }
+
+    fillBackgroundDetails(
+      String? profession,
+      String? employmentStatus,
+      String? income,
+      String? nationality,
+      String? education,
+      String? languageSpoken,
+      String? religion,
+      String? ethnicity
+    ) async {
+       try {
+          Person personInstance = Person(
+            profession:profession,
+            employmentStatus:employmentStatus,
+            income:income,
+            nationality:nationality,
+            education:education,
+            languageSpoken:languageSpoken,
+            religion:religion,
+            ethnicity:ethnicity);
+          await FirebaseFirestore.instance.collection("users").doc(currentUserID).set(personInstance.toJson(),SetOptions(merge: true));
+        } catch (e) {
+          Get.snackbar("Account creation Unsuccessful", "Error message: $e", snackPosition: SnackPosition.BOTTOM, colorText: Colors.red.shade900);
+        }
+        update();   
     }
     
   

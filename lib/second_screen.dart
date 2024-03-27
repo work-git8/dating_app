@@ -43,7 +43,7 @@ class _SecondScreenState extends State<SecondScreen> {
   final newDocRef = FirebaseFirestore.instance
       .collection("users")
       .doc(currentUserID); // Use currentUserID as document ID
-  await newDocRef.set({'email': userEmail});
+  await newDocRef.set({'email': userEmail, 'uid': currentUserID});
   print(newDocRef);
   return newDocRef;
 }
@@ -55,7 +55,7 @@ class _SecondScreenState extends State<SecondScreen> {
       alignment: Alignment.topCenter,
       children: [
         Container(
-          color: Colors.red,
+          color: Colors.orangeAccent,
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _SecondScreenState extends State<SecondScreen> {
                 'Bumble',
                 style: GoogleFonts.pacifico(
                     fontSize: 50,
-                    color: Colors.yellowAccent,
+                    color: Colors.red,
                     decoration: TextDecoration.none),
               ),
             ),

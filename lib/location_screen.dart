@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dating_app/pageview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,7 @@ class _LocationScreenState extends State<LocationScreen> {
         alignment: Alignment.topCenter,
         children: [
           Container(
-            color: Colors.red,
+            color: Colors.orangeAccent,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -61,7 +62,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           text: 'Location',
                           style: GoogleFonts.pacifico(
                               fontSize: 40,
-                              color: Colors.yellowAccent,
+                              color: Colors.red,
                               decoration: TextDecoration.none),
                         ),
                       ]),
@@ -109,7 +110,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         fontSize: 18, decoration: TextDecoration.underline),
                   ),
                   onTap: () {
-                    Get.to(() => Profile());
+                    Get.to(() => PageViewScreen());
                   },
                 )
               ],
