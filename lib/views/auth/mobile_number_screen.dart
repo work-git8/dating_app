@@ -1,9 +1,11 @@
-import 'package:dating_app/validation/validation.dart';
+import 'package:dating_app/core/validation/validation.dart';
 import 'package:dating_app/widget/custom_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field_with_validator/intl_phone_field.dart';
+import 'package:intl_phone_field_with_validator/phone_number.dart';
 
 import 'otp_screen.dart';
 
@@ -16,6 +18,7 @@ class MobileNumberScreen extends StatefulWidget {
 
 class _MobileNumberScreenState extends State<MobileNumberScreen> {
   late TextEditingController phoneController;
+  late String completeNumber;
 
   @override
   void initState() {
@@ -75,14 +78,31 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
             SizedBox(height: 30),
             SizedBox(
               width: MediaQuery.of(context).size.width - 36,
-              child: CustomTextFormField(
-                controller: phoneController,
-                autovalidate: AutovalidateMode.onUserInteraction,
-                validator: Validation.PhoneValidator,
-                hintText: "Enter Contact Number",
-                inputType: TextInputType.phone,
-                icon: Icon(Icons.call_outlined),
-              ),
+              // child: CustomTextFormField(
+              //   controller: phoneController,
+              //   autovalidate: AutovalidateMode.onUserInteraction,
+              //   validator: Validation.PhoneValidator,
+              //   hintText: "Enter Contact Number",
+              //   inputType: TextInputType.phone,
+              //   icon: Icon(Icons.call_outlined),
+              // ),
+               child: IntlPhoneField(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            //controller: phoneController,
+                            onChanged: (phone){
+                               completeNumber = phone.completeNumber;
+                              },
+                            onSubmitted: (p){phoneController.text = completeNumber;},
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                labelText: 'Phone Number',
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(),
+                                ),
+                            ),
+                            initialCountryCode: 'IN',
+                        )
             ),
             SizedBox(height: 350),
             Row(

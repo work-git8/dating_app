@@ -1,14 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dating_app/global.dart';
-import 'package:dating_app/location_screen.dart';
+import 'package:dating_app/controller/profile_controller.dart';
+import 'package:dating_app/core/global.dart';
+import 'package:dating_app/views/location/location_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pinput/pinput.dart';
 import 'mobile_number_screen.dart';
+
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({super.key});
@@ -18,6 +19,8 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+
+  var profileController = Get.put(ProfileController());
 
   Future<DocumentReference<Map<String, dynamic>>> checkAndAddUser(UserCredential verifiedUser) async {
   final QuerySnapshot<Map<String, dynamic>> usersSnapshot =
@@ -34,7 +37,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
     if (email == userEmail) {
       // If email already exists, return the document reference
-      print(userDoc.reference);
+      print("${userDoc.reference} is a match");
       return userDoc.reference;
     }
   }
@@ -43,7 +46,8 @@ class _SecondScreenState extends State<SecondScreen> {
   final newDocRef = FirebaseFirestore.instance
       .collection("users")
       .doc(currentUserID); // Use currentUserID as document ID
-  await newDocRef.set({'email': userEmail, 'uid': currentUserID});
+  profileController.createNewUserAccount();
+  await newDocRef.update({'email': userEmail, 'uid': currentUserID});
   print(newDocRef);
   return newDocRef;
 }

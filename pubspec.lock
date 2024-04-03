@@ -328,6 +328,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: dfdde255317af381bfc1c486ed968d5a43a2ded9c931e87cbecd88767d6a71c1
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.2.4"
   geolocator:
     dependency: "direct main"
     description:
@@ -520,6 +528,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
+  intl_phone_field_with_validator:
+    dependency: "direct main"
+    description:
+      name: intl_phone_field_with_validator
+      sha256: "08d8182a32978093786ff70918335fafcaf6049ddf3ba70c91fb969c4786eaf1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   js:
     dependency: transitive
     description:
@@ -648,6 +664,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  phone_number:
+    dependency: transitive
+    description:
+      name: phone_number
+      sha256: "42cac4ca32146d83cc8a9c8432dc2d901d40334f0e2b02a3ec7d8237b80ebec3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   pinput:
     dependency: "direct main"
     description:

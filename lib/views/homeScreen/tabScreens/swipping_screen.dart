@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/controller/profile_controller.dart';
-import 'package:dating_app/global.dart';
+import 'package:dating_app/core/global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

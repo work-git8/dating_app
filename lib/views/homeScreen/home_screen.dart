@@ -1,8 +1,8 @@
-import 'package:dating_app/tabScreens/favorite_sent_favorite_received.dart';
-import 'package:dating_app/tabScreens/like_sent_like_received.dart';
-import 'package:dating_app/tabScreens/swipping_screen.dart';
-import 'package:dating_app/tabScreens/user_details_screen.dart';
-import 'package:dating_app/tabScreens/view_sent_view_received_screen.dart';
+import 'package:dating_app/views/homeScreen/tabScreens/favorite_sent_favorite_received.dart';
+import 'package:dating_app/views/homeScreen/tabScreens/like_sent_like_received.dart';
+import 'package:dating_app/views/homeScreen/tabScreens/swipping_screen.dart';
+import 'package:dating_app/views/homeScreen/tabScreens/user_details_screen.dart';
+import 'package:dating_app/views/homeScreen/tabScreens/view_sent_view_received_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

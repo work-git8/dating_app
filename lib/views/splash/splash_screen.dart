@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:animated_background/animated_background.dart';
-import 'package:dating_app/pageview_screen.dart';
+import 'package:dating_app/views/profile/pageview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'second_screen.dart';
+import '../auth/second_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({

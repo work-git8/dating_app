@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:dating_app/pageview_screen.dart';
+import 'package:dating_app/views/profile/pageview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'profile.dart';
+import '../profile/profile_name.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -27,7 +27,7 @@ class _LocationScreenState extends State<LocationScreen> {
           desiredAccuracy: LocationAccuracy.best);
       log("Latitude=${currentPosition.latitude.toString()}");
       log("Longitude=${currentPosition.longitude.toString()}");
-      Get.to(() => Profile());
+      Get.to(() => PageViewScreen());
     }
   }
 

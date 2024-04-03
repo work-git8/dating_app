@@ -3,37 +3,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../global.dart';
+import '../../../core/global.dart';
 
-class ViewSentViewReceivedScreen extends StatefulWidget {
-  const ViewSentViewReceivedScreen({super.key});
+class LikeSentLikeReceivedScreen extends StatefulWidget {
+  const LikeSentLikeReceivedScreen({super.key});
 
   @override
-  State<ViewSentViewReceivedScreen> createState() =>
-      _ViewSentViewReceivedScreenState();
+  State<LikeSentLikeReceivedScreen> createState() =>
+      _LikeSentLikeReceivedScreenState();
 }
 
-class _ViewSentViewReceivedScreenState
-    extends State<ViewSentViewReceivedScreen> {
+class _LikeSentLikeReceivedScreenState
+    extends State<LikeSentLikeReceivedScreen> {
 
-      bool isViewSentClicked = true;
-      List<String> viewSentList = [];
-      List<String> viewReceivedList = [];
-      List viewsList = [];
+      bool isLikeSentClicked = true;
+      List<String> likeSentList = [];
+      List<String> likeReceivedList = [];
+      List likesList = [];
 
-      getViewListKeys() async {
-        if(isViewSentClicked){
-          var viewSentDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("viewSent").get();
-          for(int i=0;i<viewSentDocument.docs.length;i++){
-            viewSentList.add(viewSentDocument.docs[i].id);
+      getLikeListKeys() async {
+        if(isLikeSentClicked){
+          var likeSentDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("likeSent").get();
+          for(int i=0;i<likeSentDocument.docs.length;i++){
+            likeSentList.add(likeSentDocument.docs[i].id);
           }
-              getKeysDataFromUsersCollection(viewSentList);
+              getKeysDataFromUsersCollection(likeSentList);
         }else{
-          var viewReceivedDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("viewReceived").get();
-          for(int i=0;i<viewReceivedDocument.docs.length;i++){
-            viewReceivedList.add(viewReceivedDocument.docs[i].id);
+          var likeReceivedDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("likeReceived").get();
+          for(int i=0;i<likeReceivedDocument.docs.length;i++){
+            likeReceivedList.add(likeReceivedDocument.docs[i].id);
           }
-              getKeysDataFromUsersCollection(viewReceivedList);
+              getKeysDataFromUsersCollection(likeReceivedList);
         } 
       }
 
@@ -43,19 +43,19 @@ class _ViewSentViewReceivedScreenState
         for(int i=0; i<allUserDocument.docs.length;i++){
           for(int k=0;k<keysList.length;k++) {
             if (((allUserDocument.docs[i].data() as dynamic)["uid"]) == keysList[k]) {
-              viewsList.add(allUserDocument.docs[i].data());
+              likesList.add(allUserDocument.docs[i].data());
             }
           }
       }
         setState(() {
-          viewsList;
+          likesList;
         });
       }
 
       @override
       void initState() {
         super.initState();
-        getViewListKeys();
+        getLikeListKeys();
         }
 
   @override
@@ -70,22 +70,22 @@ class _ViewSentViewReceivedScreenState
         children: [
           TextButton(
             onPressed: (){
-              viewSentList.clear();
-              viewSentList = [];
-              viewReceivedList.clear();
-              viewReceivedList = [];
-              viewsList.clear();
-              viewsList = [];
+              likeSentList.clear();
+              likeSentList = [];
+              likeReceivedList.clear();
+              likeReceivedList = [];
+              likesList.clear();
+              likesList = [];
 
               setState(() {
-                isViewSentClicked = true;
+                isLikeSentClicked = true;
               });
-              getViewListKeys();
+              getLikeListKeys();
             }, 
-            child: Text("My Views",
+            child: Text("My Likes",
               style: TextStyle(
-                color: isViewSentClicked ? Colors.white:Colors.grey,
-                fontWeight: isViewSentClicked ? FontWeight.bold:FontWeight.normal,
+                color: isLikeSentClicked ? Colors.white:Colors.grey,
+                fontWeight: isLikeSentClicked ? FontWeight.bold:FontWeight.normal,
                 fontSize: 16
               ),
              )
@@ -93,34 +93,34 @@ class _ViewSentViewReceivedScreenState
             Text("        |    ", style: TextStyle(color: Colors.amber),),
               TextButton(
             onPressed: (){
-               viewSentList.clear();
-              viewSentList = [];
-              viewReceivedList.clear();
-              viewReceivedList = [];
-              viewsList.clear();
-              viewsList = [];
+               likeSentList.clear();
+              likeSentList = [];
+              likeReceivedList.clear();
+              likeReceivedList = [];
+              likesList.clear();
+              likesList = [];
 
               setState(() {
-                isViewSentClicked = false;
+                isLikeSentClicked = false;
               });
-              getViewListKeys();
+              getLikeListKeys();
             }, 
-            child: Text("I am their View",
+            child: Text("I am their Like",
               style: TextStyle(
-                color: isViewSentClicked ? Colors.grey:Colors.white,
-                fontWeight: isViewSentClicked ? FontWeight.normal:FontWeight.bold,
+                color: isLikeSentClicked ? Colors.grey:Colors.white,
+                fontWeight: isLikeSentClicked ? FontWeight.normal:FontWeight.bold,
                 fontSize: 16
               ),
              )
             ),
         ],
       )),
-      body: viewsList.isEmpty ? Center(child: Icon(Icons.person_off_sharp, color: Colors.black, size: 60,),)
+      body: likesList.isEmpty ? Center(child: Icon(Icons.person_off_sharp, color: Colors.black, size: 60,),)
       : GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.all(8),
         children: 
-          List.generate(viewsList.length, (index) {
+          List.generate(likesList.length, (index) {
             return GridTile(
               child: Padding(
                 padding: EdgeInsets.all(2),
@@ -133,14 +133,14 @@ class _ViewSentViewReceivedScreenState
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(viewsList[index]["imageProfile"],), fit: BoxFit.cover),
+                        image: NetworkImage(likesList[index]["imageProfile"],), fit: BoxFit.cover),
                     ),
                     child: Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Spacer(),
-                          Text(viewsList[index]["name"].toString()+" ◉ "+viewsList[index]["age"].toString(),
+                          Text(likesList[index]["name"].toString()+" ◉ "+likesList[index]["age"].toString(),
                           maxLines: 2,
                             style:  TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
                           ),
@@ -149,7 +149,7 @@ class _ViewSentViewReceivedScreenState
                             children: [
                               Icon(Icons.location_pin),
                               Expanded(
-                              child: Text(viewsList[index]["city"].toString()+", "+viewsList[index]["country"].toString(),
+                              child: Text(likesList[index]["city"].toString()+", "+likesList[index]["country"].toString(),
                               maxLines: 2,
                                 style:  TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.normal, overflow: TextOverflow.ellipsis),
                               ),

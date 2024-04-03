@@ -3,37 +3,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../global.dart';
+import '../../../core/global.dart';
 
-class FavoriteSentFavoriteReceivedScreen extends StatefulWidget {
-  const FavoriteSentFavoriteReceivedScreen({super.key});
+class ViewSentViewReceivedScreen extends StatefulWidget {
+  const ViewSentViewReceivedScreen({super.key});
 
   @override
-  State<FavoriteSentFavoriteReceivedScreen> createState() =>
-      _FavoriteSentFavoriteReceivedScreenState();
+  State<ViewSentViewReceivedScreen> createState() =>
+      _ViewSentViewReceivedScreenState();
 }
 
-class _FavoriteSentFavoriteReceivedScreenState
-    extends State<FavoriteSentFavoriteReceivedScreen> {
+class _ViewSentViewReceivedScreenState
+    extends State<ViewSentViewReceivedScreen> {
 
-      bool isFavoriteSentClicked = true;
-      List<String> favoriteSentList = [];
-      List<String> favoriteReceivedList = [];
-      List favoritesList = [];
+      bool isViewSentClicked = true;
+      List<String> viewSentList = [];
+      List<String> viewReceivedList = [];
+      List viewsList = [];
 
-      getFavoriteListKeys() async {
-        if(isFavoriteSentClicked){
-          var favoriteSentDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("favoriteSent").get();
-          for(int i=0;i<favoriteSentDocument.docs.length;i++){
-            favoriteSentList.add(favoriteSentDocument.docs[i].id);
+      getViewListKeys() async {
+        if(isViewSentClicked){
+          var viewSentDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("viewSent").get();
+          for(int i=0;i<viewSentDocument.docs.length;i++){
+            viewSentList.add(viewSentDocument.docs[i].id);
           }
-              getKeysDataFromUsersCollection(favoriteSentList);
+              getKeysDataFromUsersCollection(viewSentList);
         }else{
-          var favoriteReceivedDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("favoriteReceived").get();
-          for(int i=0;i<favoriteReceivedDocument.docs.length;i++){
-            favoriteReceivedList.add(favoriteReceivedDocument.docs[i].id);
+          var viewReceivedDocument = await FirebaseFirestore.instance.collection("users").doc(currentUserID).collection("viewReceived").get();
+          for(int i=0;i<viewReceivedDocument.docs.length;i++){
+            viewReceivedList.add(viewReceivedDocument.docs[i].id);
           }
-              getKeysDataFromUsersCollection(favoriteReceivedList);
+              getKeysDataFromUsersCollection(viewReceivedList);
         } 
       }
 
@@ -43,19 +43,19 @@ class _FavoriteSentFavoriteReceivedScreenState
         for(int i=0; i<allUserDocument.docs.length;i++){
           for(int k=0;k<keysList.length;k++) {
             if (((allUserDocument.docs[i].data() as dynamic)["uid"]) == keysList[k]) {
-              favoritesList.add(allUserDocument.docs[i].data());
+              viewsList.add(allUserDocument.docs[i].data());
             }
           }
       }
         setState(() {
-          favoritesList;
+          viewsList;
         });
       }
 
       @override
       void initState() {
         super.initState();
-        getFavoriteListKeys();
+        getViewListKeys();
         }
 
   @override
@@ -70,22 +70,22 @@ class _FavoriteSentFavoriteReceivedScreenState
         children: [
           TextButton(
             onPressed: (){
-              favoriteSentList.clear();
-              favoriteSentList = [];
-              favoriteReceivedList.clear();
-              favoriteReceivedList = [];
-              favoritesList.clear();
-              favoritesList = [];
+              viewSentList.clear();
+              viewSentList = [];
+              viewReceivedList.clear();
+              viewReceivedList = [];
+              viewsList.clear();
+              viewsList = [];
 
               setState(() {
-                isFavoriteSentClicked = true;
+                isViewSentClicked = true;
               });
-              getFavoriteListKeys();
+              getViewListKeys();
             }, 
-            child: Text("My Favorites",
+            child: Text("My Views",
               style: TextStyle(
-                color: isFavoriteSentClicked ? Colors.white:Colors.grey,
-                fontWeight: isFavoriteSentClicked ? FontWeight.bold:FontWeight.normal,
+                color: isViewSentClicked ? Colors.white:Colors.grey,
+                fontWeight: isViewSentClicked ? FontWeight.bold:FontWeight.normal,
                 fontSize: 16
               ),
              )
@@ -93,34 +93,34 @@ class _FavoriteSentFavoriteReceivedScreenState
             Text("        |    ", style: TextStyle(color: Colors.amber),),
               TextButton(
             onPressed: (){
-               favoriteSentList.clear();
-              favoriteSentList = [];
-              favoriteReceivedList.clear();
-              favoriteReceivedList = [];
-              favoritesList.clear();
-              favoritesList = [];
+               viewSentList.clear();
+              viewSentList = [];
+              viewReceivedList.clear();
+              viewReceivedList = [];
+              viewsList.clear();
+              viewsList = [];
 
               setState(() {
-                isFavoriteSentClicked = false;
+                isViewSentClicked = false;
               });
-              getFavoriteListKeys();
+              getViewListKeys();
             }, 
-            child: Text("I am their Favorite",
+            child: Text("I am their View",
               style: TextStyle(
-                color: isFavoriteSentClicked ? Colors.grey:Colors.white,
-                fontWeight: isFavoriteSentClicked ? FontWeight.normal:FontWeight.bold,
+                color: isViewSentClicked ? Colors.grey:Colors.white,
+                fontWeight: isViewSentClicked ? FontWeight.normal:FontWeight.bold,
                 fontSize: 16
               ),
              )
             ),
         ],
       )),
-      body: favoritesList.isEmpty ? Center(child: Icon(Icons.person_off_sharp, color: Colors.black, size: 60,),)
+      body: viewsList.isEmpty ? Center(child: Icon(Icons.person_off_sharp, color: Colors.black, size: 60,),)
       : GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.all(8),
         children: 
-          List.generate(favoritesList.length, (index) {
+          List.generate(viewsList.length, (index) {
             return GridTile(
               child: Padding(
                 padding: EdgeInsets.all(2),
@@ -133,14 +133,14 @@ class _FavoriteSentFavoriteReceivedScreenState
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(favoritesList[index]["imageProfile"],), fit: BoxFit.cover),
+                        image: NetworkImage(viewsList[index]["imageProfile"],), fit: BoxFit.cover),
                     ),
                     child: Center(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Spacer(),
-                          Text(favoritesList[index]["name"].toString()+" ◉ "+favoritesList[index]["age"].toString(),
+                          Text(viewsList[index]["name"].toString()+" ◉ "+viewsList[index]["age"].toString(),
                           maxLines: 2,
                             style:  TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
                           ),
@@ -149,7 +149,7 @@ class _FavoriteSentFavoriteReceivedScreenState
                             children: [
                               Icon(Icons.location_pin),
                               Expanded(
-                              child: Text(favoritesList[index]["city"].toString()+", "+favoritesList[index]["country"].toString(),
+                              child: Text(viewsList[index]["city"].toString()+", "+viewsList[index]["country"].toString(),
                               maxLines: 2,
                                 style:  TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.normal, overflow: TextOverflow.ellipsis),
                               ),
