@@ -1,4 +1,4 @@
-# Flutter Dating App
+# Flutter Dating App (incomplete)
 
 ## Overview
 The **Flutter Dating App** is a modern mobile application that connects people based on their preferences. It features Firebase Authentication for secure login and Firestore for real-time database management.
